@@ -20,7 +20,7 @@ from email.mime.text import MIMEText
 # This is a word of the day program, that uses SMTP email sending to send text and email notifications. I webscrape deictionary.com for the word defition in the Dictionary module and clean-up the html to give me what I want in html_email
 
 # To make it nicer in future I could use beautiful soup for webscraping, but I am happy with the style from dictionary.com and presently don't need to extract the text
-# I could also consider doing a google search if dictionary.com cannot find the word. 
+# I could also consider doing a google search if dictionary.com cannot find the word.
 
 ##//////////////////////////////////////////////////////
 ##  Word of the Day
@@ -28,13 +28,13 @@ from email.mime.text import MIMEText
 
 # This is the function to actually send the email
 def send_email():
-    
+
     # Open the txt file that contains all the words and put into a list
     # The txt file has a different word on each line
-    f = open("words_test.txt", "r") 
+    f = open("words_test.txt", "r")
     words=f.read()
     wordlist=words.split('\n')
-    
+
     # The word to be defined and emailed is the first in the txt file/list
     word=wordlist[0]
     print(word)
@@ -52,7 +52,7 @@ def send_email():
     #Define email parameters
     port = 465
     sender = 'WordOfTheDay68@gmail.com' # Email account for the sender's email.
-    password = 'WordOfTheDay68!@#$%^&*()'
+    password = 'kjhdsfjhiu^&*(h982%^34y8yibhds5678$%'
     recieve= 'amcmullen@rocketmail.com' # Create a list of all emails which will recieve the email
 
 
@@ -63,16 +63,19 @@ def send_email():
     msg['To'] = recieve
     text = "Good Morning!\nHere is your word of the day"
 
-    # Try to scrape dictionary.com for the word's definition
+    # Try to scrape dictionary.com  or merriam webster for the word's definition
+    pythonAnywhere =True
     try:
-        defn=get_definition(word)
+        defn=get_definition(word,pythonAnywhere)
+        print("got the definition")
     except:
-        message="Subject: Word of the Day!"+"\n\ndictionary.com couldn't find "+word+" in its database. There might be a typo.\n\nAdam"
+        message="Subject: Word of the Day!"+"\n\Couldn't find "+word+" in its database. There might be a typo.\n\nAdam"
 
     # Try to clean up the html with definition then add it to the message
     try:
-        html=clean_html(defn)
-        
+        html=clean_html(defn,pythonAnywhere)
+        print("cleaned up the html")
+
         #Save the email content to a .html file
         f = open("email.html", "a")
         f.write(html)
@@ -105,7 +108,7 @@ def send_email_at(send_time):
     print('email sent')
 
 
-first_email_time = dt.datetime(2021,3,2,11,13,30) # set your sending time in EST (mar 2, 6:30 am EST)
+first_email_time = dt.datetime(2021,3,2,18,27,50) # set your sending time in EST (mar 2, 6:30 am EST)
 interval = dt.timedelta(minutes=1)#24*60) # set the interval for sending the email
 
 # Continuously run this script to send a new email each day
@@ -113,3 +116,4 @@ send_time = first_email_time
 while True:
     send_email_at(send_time)
     send_time = send_time + interval
+

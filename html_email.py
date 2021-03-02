@@ -14,7 +14,7 @@ def clean_html(html,pythonAnywhere):
 
     if pythonAnywhere:
         data=json.loads(html) # convert the  json object from the api into python dict
-        html="""<!DOCTYPE html><html><body><h1>"""+data[0]['meta']['id']+"""</h1><h2>"""+data[0]['fl']+"""</h2><p>"""+str(data[0]['shortdef'])+"""</p></body></html>"""
+        html="""<!DOCTYPE html><html><body><h1>"""+data[0]['meta']['id']+"""</h1><h2>"""+data[0]['fl']+"""</h2><p>"""+str(["<br>"+i+"<br>" for i in data[0]['shortdef']]).replace("[","").replace("]","").replace("'","").replace("','","")+"""</p><p><a href="https://www.merriam-webster.com/dictionary/"""+data[0]['meta']['id']+"""">https://www.merriam-webster.com/dictionary/"""+data[0]['meta']['id']+"""</a></p><p><a href="https://www.dictionary.com/browse/"""+data[0]['meta']['id']+"""">https://www.dictionary.com/browse/"""+data[0]['meta']['id']+"""</a></p></body></html>"""
     else:
         # Get rid of junk
         html=html.replace(html[html.find('<footer'):html.find('</footer>')+len('</footer>')],'')

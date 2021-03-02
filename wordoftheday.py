@@ -6,7 +6,6 @@
 #https://stackoverflow.com/questions/52022134/how-do-i-schedule-an-email-to-send-at-a-certain-time-using-cron-and-smtp-in-pyt
 #https://stackoverflow.com/questions/882712/sending-html-email-using-python
 
-#from PyDictionary import PyDictionary
 from Dictionary import get_definition
 from html_email import clean_html
 
@@ -18,39 +17,31 @@ import smtplib, ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-# This is a word of the day program, that uses SMTP email sending to send text and email notifications
+# This is a word of the day program, that uses SMTP email sending to send text and email notifications. I webscrape deictionary.com for the word defition in the Dictionary module and clean-up the html to give me what I want in html_email
+
+# To make it nicer in future I could use beautiful soup for webscraping, but I am happy with the style from dictionary.com and don't need to extract the text
 
 ##//////////////////////////////////////////////////////
 ##  Word of the Day
 ##//////////////////////////////////////////////////////
 
-#dictionary=PyDictionary() # load the PyDictionary module
-
-f = open("words.txt", "r") # open the txt file that contains all the words
-words=f.read()
-wordlist=words.split('\n')
-#defns=''
-
-#for i in range(len(wordlist)):
-#    defns+=wordlist[i]+':'+str(dictionary.meaning(wordlist[i])).replace('\'','').replace('{','').replace('}','').replace('[','').replace(']','')+'\n\n'
-#print(defns)
-
-# words=words.replace('ï‚§', '').replace('\n', '').split('\t')
-#
-#with open('definitions.txt', 'w') as f:
-#    for item in defns:
-#        f.write("%s\n" % item)
-#f.close()
-
-word=wordlist[1]
-print(word)
-
-
-
-
-
 
 def send_email():
+
+    f = open("words_test.txt", "r") # open the txt file that contains all the words
+    words=f.read()
+    wordlist=words.split('\n')
+
+    word=wordlist[0]
+    print(word)
+
+    with open('old_words.txt', 'a') as file:
+        file.write(word+'\n')
+
+    with open("words_test.txt", "w") as f:
+        for w in wordlist:
+            if w != word:
+                f.write(w+'\n')
 
     #Define who sends the email
     port = 465
@@ -92,15 +83,13 @@ def send_email():
     with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
         server.login(sender, password)
         server.sendmail(sender, recieve, message)
-    print("Sent.")
-    #server.quit()
 
 def send_email_at(send_time):
     time.sleep(send_time.timestamp() - time.time())
     send_email()
     print('email sent')
 
-first_email_time = dt.datetime(2021,3,1,23,11,0)#11,30,0) # set your sending time in UTC (mar 2, 6:30 am EST)
+first_email_time = dt.datetime(2021,3,2,10,58,20)#11,30,0) # set your sending time in UTC (mar 2, 6:30 am EST)
 interval = dt.timedelta(minutes=1)#24*60) # set the interval for sending the email
 
 send_time = first_email_time

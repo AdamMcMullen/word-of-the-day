@@ -1,11 +1,10 @@
-Salnero
 Infundibuliform
 Jowl
-Pianosa
 Derogated
 Homiletic
 Benignant
 Hauter
+Pyrrhic
 Exultantly
 Epitome
 Zealous
@@ -27,10 +26,8 @@ Jocosely
 Placid
 Putrescent
 Ferrara
-Siege of bologna
 Assyrian
 Mandrake
-Bill Shakespeare
 Cantilever
 Reviled
 Strident
@@ -40,7 +37,7 @@ Lot in Sodom, Deirdre of the Sorrows, Sweeney in the nightingales among trees. H
 Supraman
 Prolix
 Jehovah complex
-Raskolnkov
+Raskolnikov
 Motile
 Smyra
 Levant
@@ -260,7 +257,7 @@ Impresario
 Epochal
 Flaggelation
 Ingratiatingly
-Atabrine tablets
+Atabrine
 Quoit
 Seditious
 Jolification
@@ -290,7 +287,9 @@ Countenance
 Vexatious
 Laudatory
 Alfalfa
-Morose inscrutable animosity
+Morose
+inscrutable
+animosity
 august
 Frenetic
 Colossus

@@ -69,30 +69,35 @@ def send_email():
         defn=get_definition(word,pythonAnywhere)
         print("got the definition")
     except:
-        message="Subject: Word of the Day!"+"\n\Couldn't find "+word+" in its database. There might be a typo.\n\nAdam"
+        message="Subject: Word of the Day!"+"\n\nCouldn't find "+word+" in its database. There might be a typo.\n\nAdam"
+        html="""<!DOCTYPE html><html><body><h2>Couldn't find """+word+""" in its database. There might be a typo.</h2><p><a href="https://www.merriam-webster.com/dictionary/"""+word+"""">https://www.merriam-webster.com/dictionary/"""+word+"""</a></p><p><a href="https://www.dictionary.com/browse/"""+word+"""">https://www.dictionary.com/browse/"""+word+"""</a></p></body></html>"""
+
 
     # Try to clean up the html with definition then add it to the message
     try:
         html=clean_html(defn,pythonAnywhere)
         print("cleaned up the html")
 
-        #Save the email content to a .html file
-        f = open("email.html", "a")
-        f.write(html)
-        f.close()
-
-        # Record the MIME types of both parts - text/plain and text/html.
-        part1 = MIMEText(text, 'plain')
-        part2 = MIMEText(html, 'html')
-
-        # Attach parts into message container.
-        # According to RFC 2046, the last part of a multipart message, in this case
-        # the HTML message, is best and preferred.
-        msg.attach(part1)
-        msg.attach(part2)
-        message = msg.as_string()
     except:
         message="Subject: Word of the Day!"+"\n\nThere were problems cleaning up the html, maybe you should use beautiful soup.\n\nAdam"
+        html="""<!DOCTYPE html><html><body><h2>There were problems cleaning up the html, maybe you should use beautiful soup.</h2><p><a href="https://www.merriam-webster.com/dictionary/"""+word+"""">https://www.merriam-webster.com/dictionary/"""+word+"""</a></p><p><a href="https://www.dictionary.com/browse/"""+word+"""">https://www.dictionary.com/browse/"""+word+"""</a></p></body></html>"""
+
+
+    #Save the email content to a .html file
+    f = open("email.html", "a")
+    f.write(html)
+    f.close()
+
+    # Record the MIME types of both parts - text/plain and text/html.
+    part1 = MIMEText(text, 'plain')
+    part2 = MIMEText(html, 'html')
+
+    # Attach parts into message container.
+    # According to RFC 2046, the last part of a multipart message, in this case
+    # the HTML message, is best and preferred.
+    msg.attach(part1)
+    msg.attach(part2)
+    message = msg.as_string()
 
 
     # Create the body of the message (a plain-text and an HTML version) and send
@@ -108,8 +113,8 @@ def send_email_at(send_time):
     print('email sent')
 
 
-first_email_time = dt.datetime(2021,3,2,18,27,50) # set your sending time in EST (mar 2, 6:30 am EST)
-interval = dt.timedelta(minutes=1)#24*60) # set the interval for sending the email
+first_email_time = dt.datetime(2021,3,3,11,30,0) # set your sending time in EST (mar 3, 6:30 am EST)
+interval = dt.timedelta(minutes=24*60) # set the interval for sending the email
 
 # Continuously run this script to send a new email each day
 send_time = first_email_time
